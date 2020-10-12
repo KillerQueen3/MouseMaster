@@ -201,36 +201,6 @@ namespace MouseM_ster.Tool
 			bool rt = SetLocalTime(ref st);
 			return rt;
 		}
-
-		//此函数待改进。
-		/*
-		public bool UpdateTimeTest()
-		{
-			getNetTime();
-			Thread.Sleep(200);
-			DateTime f = DateTime.Now;
-			if (!getNetTime())
-			{
-				return false;
-			}
-			DateTime now = DateTime.Now;
-			long lag = now.Ticks - f.Ticks;
-			short lagTime = (short)(lag / 10000);
-			//short lagTime = 0;
-			Console.WriteLine("lag=" + lag);
-			Thread.Sleep(500);
-			if (!getNetTime())
-			{
-				return false;
-			}
-			if (!SetLocalTime(lagTime))
-			{
-				return false;
-			}
-			
-			return true;
-		}
-		*/
 	}
 }
 
