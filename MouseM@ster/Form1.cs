@@ -10,16 +10,17 @@ namespace MouseM_ster
 		private KeyEventHandler myKeyEventHandeler = null;//按键钩子
 		private KeyboardHook k_hook = new KeyboardHook();
 
+		private KeyEventHandler changeKeyHandeler = null;
+
 		MainCon con;
 
 		private bool pauseFlag = true;
+		private bool changeFlag = false;
 
-		private const int KEY_MOUSE_PAUSE = 112; //F1
 	
-
 		private void hook_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.KeyValue == KEY_MOUSE_PAUSE)
+			if (e.KeyValue == con.keyPause)
 			{
 				pauseFlag = !pauseFlag;
 				con.PauseClick();
@@ -34,13 +35,28 @@ namespace MouseM_ster
 					mouseLb.Text = "运行中";
 				}
 			}
-			Console.WriteLine("按下按键" + e.KeyValue);
+			Console.WriteLine("按下按键" + e.KeyCode);
+		}
+
+		private void changeKey(object sender, KeyEventArgs e)
+		{
+			if (changeFlag)
+			{
+				con.setPauseKey(e.KeyValue);
+				showMsg("改键：" + e.KeyCode);
+				keyLB.Text = "快捷键：" + e.KeyCode;
+				changeFlag = false;
+			}
 		}
 
 		public void startListen()
 		{
 			myKeyEventHandeler = new KeyEventHandler(hook_KeyDown);
 			k_hook.KeyDownEvent += myKeyEventHandeler;//钩住键按下
+
+			changeKeyHandeler = new KeyEventHandler(changeKey);
+			k_hook.KeyDownEvent += changeKeyHandeler;
+
 			k_hook.Start();//安装键盘钩子
 		}
 
@@ -155,6 +171,12 @@ namespace MouseM_ster
 			minTB.Text = now.Minute.ToString();
 			secTB.Text = now.Second.ToString();
 			msTB.Text = now.Millisecond.ToString();
+		}
+
+		private void keyBtn_Click(object sender, EventArgs e)
+		{
+			showMsg("按下一个键");
+			changeFlag = true;
 		}
 	}
 }

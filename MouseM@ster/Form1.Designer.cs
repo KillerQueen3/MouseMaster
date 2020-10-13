@@ -49,18 +49,20 @@
 			this.itvLb = new System.Windows.Forms.Label();
 			this.label10 = new System.Windows.Forms.Label();
 			this.msgLb = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
 			this.testBtn = new System.Windows.Forms.Button();
 			this.timeUpdateBtn1 = new System.Windows.Forms.Button();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.菜单ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.nowBtn = new System.Windows.Forms.Button();
+			this.keyBtn = new System.Windows.Forms.Button();
+			this.keyLB = new System.Windows.Forms.Label();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// setTimerBtn
 			// 
+			this.setTimerBtn.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.setTimerBtn.Location = new System.Drawing.Point(519, 48);
 			this.setTimerBtn.Name = "setTimerBtn";
 			this.setTimerBtn.Size = new System.Drawing.Size(94, 32);
@@ -111,6 +113,7 @@
 			// 
 			// setItvBtn
 			// 
+			this.setItvBtn.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.setItvBtn.Location = new System.Drawing.Point(273, 108);
 			this.setItvBtn.Name = "setItvBtn";
 			this.setItvBtn.Size = new System.Drawing.Size(100, 32);
@@ -157,6 +160,7 @@
 			// 
 			// timeStopBtn
 			// 
+			this.timeStopBtn.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.timeStopBtn.Location = new System.Drawing.Point(639, 48);
 			this.timeStopBtn.Name = "timeStopBtn";
 			this.timeStopBtn.Size = new System.Drawing.Size(94, 32);
@@ -237,15 +241,6 @@
 			this.msgLb.TabIndex = 21;
 			this.msgLb.Text = "信息";
 			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(379, 107);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(247, 30);
-			this.label5.TabIndex = 22;
-			this.label5.Text = "按F1键控制暂停/继续，\r\n定时器必须先取消再重新设定时间！";
-			// 
 			// testBtn
 			// 
 			this.testBtn.Location = new System.Drawing.Point(500, 195);
@@ -259,6 +254,7 @@
 			// 
 			// timeUpdateBtn1
 			// 
+			this.timeUpdateBtn1.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.timeUpdateBtn1.Location = new System.Drawing.Point(273, 166);
 			this.timeUpdateBtn1.Name = "timeUpdateBtn1";
 			this.timeUpdateBtn1.Size = new System.Drawing.Size(145, 32);
@@ -295,6 +291,7 @@
 			// 
 			// nowBtn
 			// 
+			this.nowBtn.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.nowBtn.Location = new System.Drawing.Point(759, 48);
 			this.nowBtn.Name = "nowBtn";
 			this.nowBtn.Size = new System.Drawing.Size(94, 32);
@@ -303,11 +300,32 @@
 			this.nowBtn.UseVisualStyleBackColor = true;
 			this.nowBtn.Click += new System.EventHandler(this.nowBtn_Click);
 			// 
+			// keyBtn
+			// 
+			this.keyBtn.Location = new System.Drawing.Point(519, 108);
+			this.keyBtn.Name = "keyBtn";
+			this.keyBtn.Size = new System.Drawing.Size(94, 32);
+			this.keyBtn.TabIndex = 27;
+			this.keyBtn.Text = "改键";
+			this.keyBtn.UseVisualStyleBackColor = true;
+			this.keyBtn.Click += new System.EventHandler(this.keyBtn_Click);
+			// 
+			// keyLB
+			// 
+			this.keyLB.AutoSize = true;
+			this.keyLB.Location = new System.Drawing.Point(397, 115);
+			this.keyLB.Name = "keyLB";
+			this.keyLB.Size = new System.Drawing.Size(83, 15);
+			this.keyLB.TabIndex = 28;
+			this.keyLB.Text = "快捷键：F1";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(922, 249);
+			this.Controls.Add(this.keyLB);
+			this.Controls.Add(this.keyBtn);
 			this.Controls.Add(this.nowBtn);
 			this.Controls.Add(this.timeUpdateBtn1);
 			this.Controls.Add(this.testBtn);
@@ -331,7 +349,6 @@
 			this.Controls.Add(this.minTB);
 			this.Controls.Add(this.hourTB);
 			this.Controls.Add(this.setTimerBtn);
-			this.Controls.Add(this.label5);
 			this.Controls.Add(this.menuStrip1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -369,13 +386,14 @@
 		private System.Windows.Forms.Label itvLb;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.Label msgLb;
-		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Button testBtn;
 		private System.Windows.Forms.Button timeUpdateBtn1;
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem 菜单ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem 说明ToolStripMenuItem;
 		private System.Windows.Forms.Button nowBtn;
+		private System.Windows.Forms.Button keyBtn;
+		private System.Windows.Forms.Label keyLB;
 	}
 }
 

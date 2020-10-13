@@ -209,6 +209,9 @@ namespace MouseM_ster.Tool
 		volatile bool pause = false;
 		volatile bool stop = false;
 
+		[DllImport("winmm")]
+		static extern uint timeGetTime();
+
 		public MouseRun()
 		{
 			
@@ -237,6 +240,7 @@ namespace MouseM_ster.Tool
 
 		private void run()
 		{
+			uint pre;
 			while (!stop) 
 			{
 				if (!pause)
@@ -245,7 +249,13 @@ namespace MouseM_ster.Tool
 					MouseTool.MouseLeftClickEvent(mouseP.X, mouseP.Y, 0);
 					Console.WriteLine("click " + mouseP.X + ", " + mouseP.Y);
 				}
-				Thread.Sleep(interval);
+				pre = timeGetTime();
+				//Console.WriteLine(DateTime.Now.Millisecond);
+
+				while (timeGetTime() - pre < interval)
+				{
+					Thread.Sleep(1);
+				}
 			}
 			running = false;
 		}

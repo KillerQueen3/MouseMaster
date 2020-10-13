@@ -10,6 +10,8 @@ namespace MouseM_ster.Controller
 		MainForm f;
 		TimeUpdater tu;
 
+		public int keyPause = 112; //F1
+
 		public MainCon(MainForm form)
 		{
 			timer = new STimer();
@@ -30,6 +32,11 @@ namespace MouseM_ster.Controller
 		public void StartClick()
 		{
 			run.Start();
+		}
+
+		public void setPauseKey(int k)
+		{
+			keyPause = k;
 		}
 
 		public bool IsTimerRunning()
