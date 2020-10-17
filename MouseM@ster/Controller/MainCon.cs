@@ -1,5 +1,6 @@
 ﻿using MouseM_ster.Tool;
 using System.Text.RegularExpressions;
+using System;
 
 namespace MouseM_ster.Controller
 {
@@ -19,13 +20,13 @@ namespace MouseM_ster.Controller
 			run = new MouseRun();
 			tu = new TimeUpdater();
 			timer.SetTask(task);
-			run.Start();
-			run.ChangePause();
 		}
 
 		public void task()
 		{
-			run.Resume();
+			DateTime now = DateTime.Now;
+			Console.WriteLine(now.Second + "  " + now.Millisecond);
+			run.Start();
 			
 			f.timerMsg();
 		}
@@ -105,7 +106,7 @@ namespace MouseM_ster.Controller
 
 		public void PauseClick()
 		{
-			run.ChangePause();
+			run.Stop();
 		}
 
 		public void StopAll()

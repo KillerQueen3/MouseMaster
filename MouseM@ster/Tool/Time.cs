@@ -90,6 +90,7 @@ namespace MouseM_ster.Tool
 
 		private void run()
 		{
+			Tool.MouseRun.timeBeginPeriod(1);
 			do
 			{
 				Thread.Sleep(1);
@@ -101,6 +102,7 @@ namespace MouseM_ster.Tool
 				task();
 			}
 			running = false;
+			Tool.MouseRun.timeEndPeriod(1);
 		}
 	}
 

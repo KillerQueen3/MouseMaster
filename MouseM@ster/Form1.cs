@@ -20,18 +20,19 @@ namespace MouseM_ster
 	
 		private void hook_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.KeyValue == con.keyPause)
+			if (e.KeyValue == con.keyPause && !changeFlag)
 			{
 				pauseFlag = !pauseFlag;
-				con.PauseClick();
 				if (pauseFlag)
 				{
 					showMsg("暂停");
+					con.PauseClick();
 					mouseLb.Text = "暂停";
 				}
 				else
 				{
 					showMsg("继续");
+					con.StartClick();
 					mouseLb.Text = "运行中";
 				}
 			}
@@ -160,8 +161,8 @@ namespace MouseM_ster
 		private void 说明ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			MessageBox.Show("用于定时开始进行鼠标左键连点，也可使用快捷键控制鼠标连点及暂停。\n" +
-				"连点精度<10ms。\n" +
-				"定时精度:~20ms。\n" +
+				"连点精度<5ms。\n" +
+				"定时精度<5ms。\n" +
 				"时间校对精度:根据网络状况而定(本程序设定200ms延迟修正值)。\n" +
 				"时间校准api:http://worldtimeapi.org/api/timezone/Asia/Shanghai", "说明");
 		}

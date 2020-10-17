@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace MouseM_ster.Tool
 {
@@ -206,42 +206,15 @@ namespace MouseM_ster.Tool
 	{
 		volatile int interval = 100;
 		volatile bool running = false;
-		volatile bool pause = false;
 		volatile bool stop = false;
-
-		volatile bool active = false;
 
 		[DllImport("winmm")]
 		static extern uint timeGetTime();
 
-		[DllImport("kernel32.dll")]
-		public static extern bool SetWaitableTimer(int hTimer, ref long pDueTime,
-		int lPeriod, int pfnCompletionRoutine, // TimerCompleteDelegate  
-		int lpArgToCompletionRoutine, bool fResume);
-
-
-		[DllImport("user32.dll")]
-		public static extern bool MsgWaitForMultipleObjects(uint nCount, ref int pHandles,
-			bool bWaitAll, int dwMilliseconds, uint dwWakeMask);
-
-
-		[DllImport("kernel32.dll")]
-		public static extern bool CloseHandle(int hObject);
-
-		[DllImport("kernel32.dll")]
-		public static extern int CreateWaitableTimer(int lpTimerAttributes, bool bManualReset, int lpTimerName);
-
-		public const int NULL = 0;
-		public const int QS_TIMER = 0x10;
-
-		public static void UsDelay(int us)
-		{
-			long duetime = -10 * us;
-			int hWaitTimer = CreateWaitableTimer(NULL, true, NULL);
-			SetWaitableTimer(hWaitTimer, ref duetime, 0, NULL, NULL, false);
-			while (MsgWaitForMultipleObjects(1, ref hWaitTimer, false, Timeout.Infinite, QS_TIMER)) ;
-			CloseHandle(hWaitTimer);
-		}
+		[DllImport("winmm")]
+		public static extern void timeBeginPeriod(int t);
+		[DllImport("winmm")]
+		public static extern void timeEndPeriod(int t);
 
 		public MouseRun()
 		{
@@ -271,29 +244,23 @@ namespace MouseM_ster.Tool
 
 		private void run()
 		{
+			timeBeginPeriod(1);
 			uint pre;
 			while (!stop) 
 			{
-				if (!pause)
-				{
-					Point mouseP = Control.MousePosition;
-					MouseTool.MouseLeftClickEvent(mouseP.X, mouseP.Y, 0);
-					Console.WriteLine("click " + mouseP.X + ", " + mouseP.Y);
-				}
-				pre = timeGetTime();
-				Console.WriteLine(DateTime.Now.Millisecond);
 
+				pre = timeGetTime();
+				Point mouseP = Control.MousePosition;
+				MouseTool.MouseLeftClickEvent(mouseP.X, mouseP.Y, 0);
+				//Console.WriteLine("click " + mouseP.X + ", " + mouseP.Y);
+				//Console.WriteLine(DateTime.Now.Millisecond);
 				do
 				{
-					UsDelay(100);
-				} while (timeGetTime() - pre < interval && !active);
-
-				if (active)
-				{
-					active = false;
-				}
+					Thread.Sleep(1);
+				} while (timeGetTime() - pre < interval);
 			}
 			running = false;
+			timeEndPeriod(1);
 		}
 
 		public void Stop()
@@ -303,13 +270,7 @@ namespace MouseM_ster.Tool
 
 		public void Resume()
 		{
-			pause = false;
-			active = true;
-		}
-
-		public void ChangePause()
-		{
-			pause = !pause;
+			stop = false;
 		}
 	}
 }
