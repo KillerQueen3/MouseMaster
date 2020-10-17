@@ -24,7 +24,7 @@ namespace MouseM_ster.Tool
 
 		public STimer()
 		{
-			SetTarget(13, 59, 59, 700);
+
 		}
 
 		public void PrintNow()
@@ -123,7 +123,7 @@ namespace MouseM_ster.Tool
 			WebResponse wrp = null;
 			try
 			{
-				wrt = WebRequest.Create("http://worldtimeapi.org/api/timezone/Asia/Shanghai");
+				wrt = WebRequest.Create(url);
 				wrp = wrt.GetResponse();
 
 				string html = string.Empty;

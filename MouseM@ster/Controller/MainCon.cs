@@ -19,13 +19,14 @@ namespace MouseM_ster.Controller
 			run = new MouseRun();
 			tu = new TimeUpdater();
 			timer.SetTask(task);
-			run.ChangePause();
 			run.Start();
+			run.ChangePause();
 		}
 
 		public void task()
 		{
 			run.Resume();
+			
 			f.timerMsg();
 		}
 

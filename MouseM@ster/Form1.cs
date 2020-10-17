@@ -81,7 +81,7 @@ namespace MouseM_ster
 		public MainForm()
 		{
 			InitializeComponent();
-			System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;
+			CheckForIllegalCrossThreadCalls = false;
 			con = new MainCon(this);
 			startListen();
 			con.SetMouseInterval(itvTB.Text);
@@ -160,7 +160,9 @@ namespace MouseM_ster
 		private void 说明ToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			MessageBox.Show("用于定时开始进行鼠标左键连点，也可使用快捷键控制鼠标连点及暂停。\n" +
-				"定时精度:~2ms。\n时间校对精度:根据网络状况而定(本程序设定200ms延迟修正值)。\n" +
+				"连点精度<10ms。\n" +
+				"定时精度:~20ms。\n" +
+				"时间校对精度:根据网络状况而定(本程序设定200ms延迟修正值)。\n" +
 				"时间校准api:http://worldtimeapi.org/api/timezone/Asia/Shanghai", "说明");
 		}
 

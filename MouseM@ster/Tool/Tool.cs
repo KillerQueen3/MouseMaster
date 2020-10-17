@@ -209,8 +209,39 @@ namespace MouseM_ster.Tool
 		volatile bool pause = false;
 		volatile bool stop = false;
 
+		volatile bool active = false;
+
 		[DllImport("winmm")]
 		static extern uint timeGetTime();
+
+		[DllImport("kernel32.dll")]
+		public static extern bool SetWaitableTimer(int hTimer, ref long pDueTime,
+		int lPeriod, int pfnCompletionRoutine, // TimerCompleteDelegate  
+		int lpArgToCompletionRoutine, bool fResume);
+
+
+		[DllImport("user32.dll")]
+		public static extern bool MsgWaitForMultipleObjects(uint nCount, ref int pHandles,
+			bool bWaitAll, int dwMilliseconds, uint dwWakeMask);
+
+
+		[DllImport("kernel32.dll")]
+		public static extern bool CloseHandle(int hObject);
+
+		[DllImport("kernel32.dll")]
+		public static extern int CreateWaitableTimer(int lpTimerAttributes, bool bManualReset, int lpTimerName);
+
+		public const int NULL = 0;
+		public const int QS_TIMER = 0x10;
+
+		public static void UsDelay(int us)
+		{
+			long duetime = -10 * us;
+			int hWaitTimer = CreateWaitableTimer(NULL, true, NULL);
+			SetWaitableTimer(hWaitTimer, ref duetime, 0, NULL, NULL, false);
+			while (MsgWaitForMultipleObjects(1, ref hWaitTimer, false, Timeout.Infinite, QS_TIMER)) ;
+			CloseHandle(hWaitTimer);
+		}
 
 		public MouseRun()
 		{
@@ -250,11 +281,16 @@ namespace MouseM_ster.Tool
 					Console.WriteLine("click " + mouseP.X + ", " + mouseP.Y);
 				}
 				pre = timeGetTime();
-				//Console.WriteLine(DateTime.Now.Millisecond);
+				Console.WriteLine(DateTime.Now.Millisecond);
 
-				while (timeGetTime() - pre < interval)
+				do
 				{
-					Thread.Sleep(1);
+					UsDelay(100);
+				} while (timeGetTime() - pre < interval && !active);
+
+				if (active)
+				{
+					active = false;
 				}
 			}
 			running = false;
@@ -268,6 +304,7 @@ namespace MouseM_ster.Tool
 		public void Resume()
 		{
 			pause = false;
+			active = true;
 		}
 
 		public void ChangePause()
